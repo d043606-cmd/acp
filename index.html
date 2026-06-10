@@ -238,7 +238,7 @@ const QS = [
   }
 ];
 
-const LBLS = ['榮民身分','免費資格','健保條件','人數'];
+const LBLS = ['榮民身分','免費資格','符合條件','查詢結果'];
 
 function renderBar(active, total){
   const bar = document.getElementById('step-bar');
@@ -338,7 +338,7 @@ function nl2p(text){
 
 // ── 數據回傳設定 ─────────────────────────────────────────────
 // 部署 Apps Script 後，把 Web App URL 貼到下方引號內
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyv0HintWNbM-VJcpKB3PdhkDXFFF7x8C0Tcva2Xg-glArEVtVPHL0LpQRYbthIpLzk/exec";
+const SCRIPT_URL = "請貼上您的_Apps_Script_Web_App_URL";
 
 function sendTracking(planName, planType, amount) {
   if (!SCRIPT_URL || SCRIPT_URL.startsWith("請貼")) return;
