@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>預立醫療照護諮商費用查詢｜臺北榮民總醫院蘇澳暨員山分院</title>
+<title>「安心問」智能ACP給付方案查詢系統｜臺北榮民總醫院蘇澳暨員山分院</title>
 <meta name="description" content="預立醫療照護諮商費用方案查詢，快速找到適合您的免費或優惠方案。">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
@@ -118,7 +118,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC','PingFang TC','
       <div class="logo-name">臺北榮民總醫院蘇澳暨員山分院</div>
       <div class="logo-dot"></div>
     </div>
-    <h1>預立醫療照護諮商<br>費用方案查詢</h1>
+    <h1>「安心問」<br>智能ACP給付方案查詢系統</h1>
     <p>回答幾個簡單問題，馬上找到您的方案 🌸</p>
   </div>
   <div class="step-bar" id="step-bar"></div>
@@ -338,7 +338,7 @@ function nl2p(text){
 
 // ── 數據回傳設定 ─────────────────────────────────────────────
 // 部署 Apps Script 後，把 Web App URL 貼到下方引號內
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyi6uFjtZL11zMydO890qUPPNUZM6wF-fw3TPBiMn_lG2auMLL_vpwdwBbmsMFaBlDC/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxLERW63lmfMvebt7Bfq_aFLCB8TzUIeUhculE3qq8s3E-OytCdZakaZ6Bb_-il0LM/exec";
 
 function sendTracking(planName, planType, amount) {
   if (!SCRIPT_URL || SCRIPT_URL.startsWith("請貼")) return;
