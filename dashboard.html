@@ -8,71 +8,80 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{min-height:100%;background:#0D1B3E;font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;}
-
-/* ── layout ── */
 .page{max-width:900px;margin:0 auto;padding:1.5rem 1rem 4rem;}
-
-/* ── header ── */
-.header{text-align:center;padding:1.5rem 1rem 1.25rem;}
+.header{text-align:center;padding:1.5rem 1rem 1rem;}
 .logo-row{display:flex;align-items:center;justify-content:center;gap:7px;margin-bottom:0.75rem;}
 .logo-dot{width:6px;height:6px;border-radius:50%;background:#D4A843;}
 .logo-name{font-size:11px;color:#94A3B8;letter-spacing:0.5px;}
 .header h1{font-size:22px;font-weight:600;color:#fff;line-height:1.4;margin-bottom:0.3rem;}
 .header-sub{font-size:13px;color:#94A3B8;}
 .last-update{display:inline-block;background:#142454;color:#F0CC7A;font-size:11px;padding:4px 12px;border-radius:20px;margin-top:0.6rem;border:0.5px solid #1E3166;}
-
-/* ── nav link ── */
-.nav-row{display:flex;justify-content:center;gap:10px;margin:1rem 0 1.5rem;}
+.nav-row{display:flex;justify-content:center;gap:10px;margin:1rem 0 1.25rem;}
 .nav-btn{background:#142454;color:#94A3B8;border:0.5px solid #1E3166;border-radius:24px;padding:7px 18px;font-size:13px;cursor:pointer;text-decoration:none;transition:all 0.2s;}
 .nav-btn:hover{border-color:#D4A843;color:#F0CC7A;}
 .nav-btn.active{background:#D4A843;color:#0D1B3E;border-color:#D4A843;font-weight:500;}
 
-/* ── stat cards ── */
-.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
-@media(max-width:520px){.stat-grid{grid-template-columns:1fr 1fr;}}
-.stat-card{background:#142454;border-radius:14px;padding:1.1rem 1.2rem;border:0.5px solid #1E3166;position:relative;overflow:hidden;}
-.stat-card::after{content:'';position:absolute;right:-12px;bottom:-12px;width:60px;height:60px;border-radius:50%;background:#1E3166;}
-.stat-label{font-size:11px;color:#94A3B8;margin-bottom:6px;letter-spacing:0.3px;}
-.stat-num{font-size:36px;font-weight:700;color:#D4A843;line-height:1;margin-bottom:4px;}
-.stat-unit{font-size:12px;color:#F0CC7A;}
+/* 日期篩選 */
+.filter-card{background:#142454;border-radius:14px;padding:1.1rem 1.25rem;border:0.5px solid #1E3166;margin-bottom:16px;}
+.filter-title{font-size:12px;font-weight:500;color:#F0CC7A;margin-bottom:0.9rem;letter-spacing:0.3px;}
+.filter-row{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;}
+.filter-group{display:flex;flex-direction:column;gap:5px;}
+.filter-group label{font-size:11px;color:#94A3B8;}
+.filter-group input[type="date"]{background:#0D1B3E;border:0.5px solid #1E3166;border-radius:8px;padding:7px 10px;color:#fff;font-size:13px;font-family:inherit;outline:none;cursor:pointer;}
+.filter-group input[type="date"]:focus{border-color:#D4A843;}
+.filter-group input[type="date"]::-webkit-calendar-picker-indicator{filter:invert(0.6);}
+.query-btn{background:#D4A843;color:#0D1B3E;border:none;border-radius:8px;padding:8px 20px;font-size:13px;font-weight:500;cursor:pointer;white-space:nowrap;}
+.query-btn:hover{background:#F0CC7A;}
+.reset-btn{background:none;color:#94A3B8;border:0.5px solid #1E3166;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+.reset-btn:hover{border-color:#D4A843;color:#F0CC7A;}
+.shortcut-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px;}
+.shortcut-btn{background:#1E3166;color:#94A3B8;border:0.5px solid #1E3166;border-radius:20px;padding:4px 12px;font-size:11px;cursor:pointer;transition:all 0.15s;}
+.shortcut-btn:hover,.shortcut-btn.active{background:#D4A84330;border-color:#D4A843;color:#F0CC7A;}
+.filter-badge{display:inline-flex;align-items:center;gap:6px;background:#D4A84320;color:#F0CC7A;border:0.5px solid #D4A843;border-radius:20px;padding:4px 12px;font-size:11px;margin-bottom:12px;}
+.filter-badge button{background:none;border:none;color:#F0CC7A;cursor:pointer;font-size:13px;line-height:1;padding:0;}
+
+/* stat cards */
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
+@media(max-width:600px){.stat-grid{grid-template-columns:1fr 1fr;}}
+.stat-card{background:#142454;border-radius:12px;padding:1rem 1.1rem;border:0.5px solid #1E3166;position:relative;overflow:hidden;}
+.stat-card::after{content:'';position:absolute;right:-10px;bottom:-10px;width:50px;height:50px;border-radius:50%;background:#1E316650;}
+.stat-label{font-size:10px;color:#94A3B8;margin-bottom:5px;}
+.stat-num{font-size:30px;font-weight:700;color:#D4A843;line-height:1;margin-bottom:3px;}
+.stat-unit{font-size:11px;color:#F0CC7A;}
 .stat-card.teal .stat-num{color:#5DCAA5;}
 .stat-card.rose .stat-num{color:#EAB8C0;}
+.stat-card.blue .stat-num{color:#7EB8F7;}
 
-/* ── chart cards ── */
-.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-@media(max-width:520px){.chart-row{grid-template-columns:1fr;}}
+/* charts */
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+@media(max-width:540px){.chart-row{grid-template-columns:1fr;}}
 .chart-card{background:#142454;border-radius:14px;padding:1.1rem 1.2rem;border:0.5px solid #1E3166;}
 .chart-card.full{grid-column:1/-1;}
 .chart-title{font-size:13px;font-weight:500;color:#F0CC7A;margin-bottom:1rem;}
 .chart-wrap{position:relative;height:200px;}
-.chart-wrap.tall{height:260px;}
+.chart-wrap.tall{height:240px;}
 
-/* ── table ── */
-.table-card{background:#142454;border-radius:14px;padding:1.1rem 1.2rem;border:0.5px solid #1E3166;margin-bottom:16px;}
+/* table */
+.table-card{background:#142454;border-radius:14px;padding:1.1rem 1.2rem;border:0.5px solid #1E3166;margin-bottom:14px;overflow-x:auto;}
 .table-title{font-size:13px;font-weight:500;color:#F0CC7A;margin-bottom:0.9rem;}
-.tbl{width:100%;border-collapse:collapse;font-size:12px;}
-.tbl th{background:#1E3166;color:#94A3B8;font-weight:500;padding:7px 10px;text-align:left;}
-.tbl td{padding:8px 10px;color:#E2E8F0;border-bottom:0.5px solid #1E3166;}
+.tbl{width:100%;border-collapse:collapse;font-size:12px;min-width:380px;}
+.tbl th{background:#1E3166;color:#94A3B8;font-weight:500;padding:7px 10px;text-align:left;white-space:nowrap;}
+.tbl td{padding:8px 10px;color:#E2E8F0;border-bottom:0.5px solid #1E316680;white-space:nowrap;}
 .tbl tr:last-child td{border-bottom:none;}
 .tbl tr:hover td{background:#1E316640;}
 .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:500;}
 .badge.free{background:#0E9F8E30;color:#5DCAA5;border:0.5px solid #0E9F8E;}
 .badge.paid{background:#D4A84330;color:#F0CC7A;border:0.5px solid #D4A843;}
 
-/* ── empty / loading ── */
+/* loading */
 .loading{text-align:center;padding:3rem 1rem;color:#94A3B8;font-size:14px;}
-.loading .spin{display:inline-block;width:28px;height:28px;border:3px solid #1E3166;border-top-color:#D4A843;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:0.75rem;}
+.spin{display:inline-block;width:28px;height:28px;border:3px solid #1E3166;border-top-color:#D4A843;border-radius:50%;animation:spin 0.8s linear infinite;margin-bottom:0.75rem;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.empty{text-align:center;padding:2rem;color:#94A3B8;font-size:13px;}
-
-/* ── refresh btn ── */
-.refresh-btn{display:flex;align-items:center;justify-content:center;gap:6px;background:none;border:0.5px solid #1E3166;border-radius:24px;padding:8px 20px;font-size:13px;color:#94A3B8;cursor:pointer;margin:0 auto 1.5rem;}
-.refresh-btn:hover{border-color:#D4A843;color:#F0CC7A;}
+.empty{text-align:center;padding:2rem;color:#94A3B8;font-size:13px;line-height:1.8;}
 </style>
 </head>
 <body>
 <div class="page">
-
   <div class="header">
     <div class="logo-row">
       <div class="logo-dot"></div>
@@ -86,221 +95,165 @@ html,body{min-height:100%;background:#0D1B3E;font-family:-apple-system,BlinkMacS
 
   <div class="nav-row">
     <a href="index.html" class="nav-btn">🌸 前往安心問</a>
-    <button class="nav-btn active" onclick="loadData()">📊 儀表板</button>
+    <span class="nav-btn active">📊 儀表板</span>
   </div>
 
-  <button class="refresh-btn" onclick="loadData()">🔄 重新整理數據</button>
-
-  <div id="content">
-    <div class="loading">
-      <div class="spin"></div><br>載入數據中…
+  <div class="filter-card">
+    <div class="filter-title">📅 自訂日期查詢</div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <label>開始日期</label>
+        <input type="date" id="dateFrom">
+      </div>
+      <div class="filter-group">
+        <label>結束日期</label>
+        <input type="date" id="dateTo">
+      </div>
+      <button class="query-btn" onclick="queryByDate()">🔍 查詢</button>
+      <button class="reset-btn" onclick="resetFilter()">✕ 清除</button>
+    </div>
+    <div class="shortcut-row">
+      <button class="shortcut-btn" onclick="setShortcut('today',this)">今天</button>
+      <button class="shortcut-btn" onclick="setShortcut('week',this)">本週</button>
+      <button class="shortcut-btn" onclick="setShortcut('month',this)">本月</button>
+      <button class="shortcut-btn" onclick="setShortcut('last_month',this)">上個月</button>
+      <button class="shortcut-btn active" id="btn-all" onclick="setShortcut('all',this)">全部</button>
     </div>
   </div>
 
+  <div id="filter-indicator"></div>
+  <div id="content"><div class="loading"><div class="spin"></div><br>載入數據中…</div></div>
 </div>
 
 <script>
-// ── 請和 index.html 填入相同的 Apps Script 網址 ──────────────
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqza-VllEu6tKrMGPOqOVUZ_fnyNX2afpg9hIHzqzd1otBX2jZX4uEGQWBPGEZnKxN/exec";
-// ─────────────────────────────────────────────────────────────
 
-let pieChart = null;
-let barChart = null;
-let trendChart = null;
+let pieChart=null,barChart=null,trendChart=null,deviceChart=null;
+let currentFrom='',currentTo='';
 
-async function loadData() {
-  if (!SCRIPT_URL || SCRIPT_URL.startsWith("請貼")) {
-    document.getElementById('content').innerHTML = `
-      <div class="empty">⚠️ 請先在 dashboard.html 裡填入 Apps Script 網址<br><br>
-      找到這一行：<br><code style="color:#F0CC7A;font-size:11px">const SCRIPT_URL = "請貼上您的..."</code><br><br>
-      換成你的 Web App URL 後重新上傳即可</div>`;
+function setShortcut(type,btn){
+  document.querySelectorAll('.shortcut-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const now=new Date(), today=now.toISOString().slice(0,10);
+  if(type==='today'){
+    document.getElementById('dateFrom').value=today;
+    document.getElementById('dateTo').value=today;
+  } else if(type==='week'){
+    const day=now.getDay(), mon=new Date(now);
+    mon.setDate(now.getDate()-(day===0?6:day-1));
+    document.getElementById('dateFrom').value=mon.toISOString().slice(0,10);
+    document.getElementById('dateTo').value=today;
+  } else if(type==='month'){
+    const first=new Date(now.getFullYear(),now.getMonth(),1);
+    document.getElementById('dateFrom').value=first.toISOString().slice(0,10);
+    document.getElementById('dateTo').value=today;
+  } else if(type==='last_month'){
+    const first=new Date(now.getFullYear(),now.getMonth()-1,1);
+    const last=new Date(now.getFullYear(),now.getMonth(),0);
+    document.getElementById('dateFrom').value=first.toISOString().slice(0,10);
+    document.getElementById('dateTo').value=last.toISOString().slice(0,10);
+  } else {
+    document.getElementById('dateFrom').value='';
+    document.getElementById('dateTo').value='';
+  }
+  queryByDate();
+}
+
+function queryByDate(){
+  currentFrom=document.getElementById('dateFrom').value;
+  currentTo=document.getElementById('dateTo').value;
+  loadData(currentFrom,currentTo);
+}
+
+function resetFilter(){
+  document.getElementById('dateFrom').value='';
+  document.getElementById('dateTo').value='';
+  document.querySelectorAll('.shortcut-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('btn-all').classList.add('active');
+  currentFrom=''; currentTo='';
+  loadData('','');
+}
+
+async function loadData(from='',to=''){
+  if(!SCRIPT_URL||SCRIPT_URL.startsWith('請貼')){
+    document.getElementById('content').innerHTML='<div class="empty">⚠️ 請填入 Apps Script 網址後重新上傳</div>';
+    return;
+  }
+  document.getElementById('last-update').textContent='載入中…';
+  document.getElementById('content').innerHTML='<div class="loading"><div class="spin"></div><br>載入數據中…</div>';
+  try{
+    let url=SCRIPT_URL+'?action=dashboard';
+    if(from) url+='&from='+from;
+    if(to)   url+='&to='+to;
+    const res=await fetch(url);
+    const json=JSON.parse(await res.text());
+    if(json.status==='ok') renderDashboard(json.data,from,to);
+    else showError();
+  } catch(e){ showError(); }
+}
+
+function showError(){
+  document.getElementById('last-update').textContent='連線失敗';
+  document.getElementById('content').innerHTML='<div class="empty">⚠️ 無法載入數據，請確認 Apps Script 已正確部署</div>';
+}
+
+function renderDashboard(data,from,to){
+  const now=new Date();
+  document.getElementById('last-update').textContent='最後更新：'+now.toLocaleString('zh-TW',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  const fi=document.getElementById('filter-indicator');
+  fi.innerHTML=(from||to)?`<div class="filter-badge">📅 篩選區間：${from||'…'} 至 ${to||'今天'}<button onclick="resetFilter()">✕</button></div>`:'';
+
+  const total=data.total||0,freeCount=data.freeCount||0,paidCount=data.paidCount||0;
+  const mobileCount=data.mobileCount||0,desktopCount=data.desktopCount||0;
+  const plans=data.plans||[],recent=data.recent||[],monthly=data.monthly||[];
+
+  [pieChart,barChart,trendChart,deviceChart].forEach(c=>{if(c)c.destroy();});
+  pieChart=barChart=trendChart=deviceChart=null;
+
+  if(total===0){
+    document.getElementById('content').innerHTML='<div class="empty">📭 此期間無使用紀錄<br><br>請調整日期區間，或等待民眾開始使用安心問</div>';
     return;
   }
 
-  document.getElementById('last-update').textContent = '載入中…';
-
-  try {
-    const res = await fetch(SCRIPT_URL + "?action=dashboard", { method: "GET" });
-    const raw = await res.text();
-    const json = JSON.parse(raw);
-    if (json.status === 'ok') {
-      renderDashboard(json.data);
-    } else {
-      showError();
-    }
-  } catch(e) {
-    // Apps Script doGet 回傳的是使用紀錄 sheet 資料
-    // fallback: 從 doGet 基本確認連線
-    document.getElementById('last-update').textContent = '服務連線正常，等待數據…';
-    showNoData();
-  }
-}
-
-function showError() {
-  document.getElementById('content').innerHTML =
-    '<div class="empty">⚠️ 無法載入數據，請確認 Apps Script 網址正確且已部署</div>';
-}
-
-function showNoData() {
-  document.getElementById('content').innerHTML =
-    '<div class="empty">📭 目前尚無使用紀錄<br><br>民眾開始使用安心問後，數據將自動出現在這裡</div>';
-}
-
-function renderDashboard(data) {
-  const now = new Date();
-  document.getElementById('last-update').textContent =
-    '最後更新：' + now.toLocaleString('zh-TW', {month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
-
-  const total    = data.total    || 0;
-  const freeCount= data.freeCount|| 0;
-  const paidCount= data.paidCount|| 0;
-  const plans    = data.plans    || [];
-  const recent   = data.recent   || [];
-  const monthly  = data.monthly  || [];
-
-  // destroy old charts
-  if (pieChart)   { pieChart.destroy();   pieChart   = null; }
-  if (barChart)   { barChart.destroy();   barChart   = null; }
-  if (trendChart) { trendChart.destroy(); trendChart = null; }
-
-  document.getElementById('content').innerHTML = `
-    <!-- stat cards -->
+  document.getElementById('content').innerHTML=`
     <div class="stat-grid">
-      <div class="stat-card">
-        <div class="stat-label">📈 累計使用人次</div>
-        <div class="stat-num">${total}</div>
-        <div class="stat-unit">人次</div>
-      </div>
-      <div class="stat-card teal">
-        <div class="stat-label">✅ 免費方案</div>
-        <div class="stat-num">${freeCount}</div>
-        <div class="stat-unit">人次（${total>0?Math.round(freeCount/total*100):0}%）</div>
-      </div>
-      <div class="stat-card rose">
-        <div class="stat-label">🌸 優惠自費方案</div>
-        <div class="stat-num">${paidCount}</div>
-        <div class="stat-unit">人次（${total>0?Math.round(paidCount/total*100):0}%）</div>
-      </div>
+      <div class="stat-card"><div class="stat-label">📈 使用人次</div><div class="stat-num">${total}</div><div class="stat-unit">人次</div></div>
+      <div class="stat-card teal"><div class="stat-label">✅ 免費方案</div><div class="stat-num">${freeCount}</div><div class="stat-unit">${total>0?Math.round(freeCount/total*100):0}%</div></div>
+      <div class="stat-card rose"><div class="stat-label">🌸 優惠自費</div><div class="stat-num">${paidCount}</div><div class="stat-unit">${total>0?Math.round(paidCount/total*100):0}%</div></div>
+      <div class="stat-card blue"><div class="stat-label">📱 手機使用</div><div class="stat-num">${mobileCount}</div><div class="stat-unit">${total>0?Math.round(mobileCount/total*100):0}%</div></div>
     </div>
-
-    <!-- charts row -->
     <div class="chart-row">
-      <div class="chart-card">
-        <div class="chart-title">📊 方案分布</div>
-        <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <div class="chart-title">🏆 各方案使用次數</div>
-        <div class="chart-wrap"><canvas id="barChart"></canvas></div>
-      </div>
+      <div class="chart-card"><div class="chart-title">🥧 方案分布</div><div class="chart-wrap"><canvas id="pieChart"></canvas></div></div>
+      <div class="chart-card"><div class="chart-title">📱 裝置類型</div><div class="chart-wrap"><canvas id="deviceChart"></canvas></div></div>
     </div>
-
-    <!-- trend -->
-    <div class="chart-card full" style="margin-bottom:16px;">
-      <div class="chart-title">📅 月使用趨勢</div>
-      <div class="chart-wrap tall"><canvas id="trendChart"></canvas></div>
-    </div>
-
-    <!-- plan table -->
+    <div class="chart-card full" style="margin-bottom:14px;"><div class="chart-title">🏆 各方案使用次數</div><div class="chart-wrap"><canvas id="barChart"></canvas></div></div>
+    <div class="chart-card full" style="margin-bottom:14px;"><div class="chart-title">📅 月使用趨勢</div><div class="chart-wrap tall"><canvas id="trendChart"></canvas></div></div>
     <div class="table-card">
       <div class="table-title">📋 方案使用明細</div>
-      <table class="tbl">
-        <thead><tr><th>方案名稱</th><th>費用類型</th><th>使用次數</th><th>佔比</th></tr></thead>
-        <tbody>
-          ${plans.map(p=>`
-            <tr>
-              <td>${p.name}</td>
-              <td><span class="badge ${p.type==='free'?'free':'paid'}">${p.type==='free'?'免費':'優惠自費'}</span></td>
-              <td>${p.count}</td>
-              <td>${total>0?Math.round(p.count/total*100):0}%</td>
-            </tr>`).join('')}
-        </tbody>
-      </table>
+      <table class="tbl"><thead><tr><th>方案名稱</th><th>費用類型</th><th>使用次數</th><th>佔比</th></tr></thead>
+      <tbody>${plans.map(p=>`<tr><td>${p.name}</td><td><span class="badge ${p.type==='free'?'free':'paid'}">${p.type==='free'?'免費':'優惠自費'}</span></td><td>${p.count}</td><td>${total>0?Math.round(p.count/total*100):0}%</td></tr>`).join('')}</tbody></table>
     </div>
-
-    <!-- recent table -->
     <div class="table-card">
       <div class="table-title">🕐 最近 10 筆紀錄</div>
-      <table class="tbl">
-        <thead><tr><th>日期</th><th>時間</th><th>方案</th><th>裝置</th></tr></thead>
-        <tbody>
-          ${recent.map(r=>`
-            <tr>
-              <td>${r.date}</td>
-              <td>${r.time}</td>
-              <td>${r.plan}</td>
-              <td>${r.device==='mobile'?'📱 手機':'💻 電腦'}</td>
-            </tr>`).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
+      <table class="tbl"><thead><tr><th>日期</th><th>時間</th><th>方案</th><th>裝置</th></tr></thead>
+      <tbody>${recent.map(r=>`<tr><td>${r.date}</td><td>${r.time}</td><td>${r.plan}</td><td>${r.device==='mobile'?'📱 手機':'💻 電腦'}</td></tr>`).join('')}</tbody></table>
+    </div>`;
 
-  // ── Pie chart ──
-  const planColors = ['#D4A843','#0E9F8E','#C9848F','#5B8ADE','#9F7AEA','#F6AD55','#68D391','#FC8181'];
-  pieChart = new Chart(document.getElementById('pieChart'), {
-    type: 'doughnut',
-    data: {
-      labels: plans.map(p=>p.name),
-      datasets:[{ data: plans.map(p=>p.count), backgroundColor: planColors, borderWidth:2, borderColor:'#142454' }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{
-        legend:{ position:'bottom', labels:{ color:'#94A3B8', font:{size:10}, boxWidth:12, padding:8 }},
-        tooltip:{ callbacks:{ label: ctx => ` ${ctx.label}：${ctx.raw} 次` }}
-      }
-    }
-  });
+  const colors=['#D4A843','#0E9F8E','#C9848F','#5B8ADE','#9F7AEA','#F6AD55','#68D391','#FC8181'];
+  const chartDefaults={responsive:true,maintainAspectRatio:false};
 
-  // ── Bar chart ──
-  barChart = new Chart(document.getElementById('barChart'), {
-    type: 'bar',
-    data: {
-      labels: plans.map(p => p.name.length > 8 ? p.name.slice(0,8)+'…' : p.name),
-      datasets:[{
-        data: plans.map(p=>p.count),
-        backgroundColor: plans.map(p => p.type==='free' ? '#0E9F8E' : '#D4A843'),
-        borderRadius: 6,
-      }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ` ${ctx.raw} 次` }}},
-      scales:{
-        x:{ ticks:{ color:'#94A3B8', font:{size:10} }, grid:{color:'#1E3166'} },
-        y:{ ticks:{ color:'#94A3B8', font:{size:10} }, grid:{color:'#1E3166'}, beginAtZero:true }
-      }
-    }
-  });
+  pieChart=new Chart(document.getElementById('pieChart'),{type:'doughnut',data:{labels:plans.map(p=>p.name),datasets:[{data:plans.map(p=>p.count),backgroundColor:colors,borderWidth:2,borderColor:'#142454'}]},options:{...chartDefaults,plugins:{legend:{position:'bottom',labels:{color:'#94A3B8',font:{size:10},boxWidth:10,padding:6}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}：${ctx.raw} 次`}}}}});
 
-  // ── Trend chart ──
-  trendChart = new Chart(document.getElementById('trendChart'), {
-    type: 'line',
-    data: {
-      labels: monthly.map(m=>m.month),
-      datasets:[{
-        label:'月使用人次',
-        data: monthly.map(m=>m.count),
-        borderColor:'#D4A843', backgroundColor:'#D4A84320',
-        tension:0.4, fill:true, pointBackgroundColor:'#D4A843', pointRadius:5,
-      }]
-    },
-    options:{
-      responsive:true, maintainAspectRatio:false,
-      plugins:{ legend:{ labels:{ color:'#94A3B8' }}},
-      scales:{
-        x:{ ticks:{ color:'#94A3B8' }, grid:{color:'#1E3166'} },
-        y:{ ticks:{ color:'#94A3B8' }, grid:{color:'#1E3166'}, beginAtZero:true }
-      }
-    }
-  });
+  deviceChart=new Chart(document.getElementById('deviceChart'),{type:'doughnut',data:{labels:['📱 手機','💻 電腦'],datasets:[{data:[mobileCount,desktopCount],backgroundColor:['#C9848F','#5B8ADE'],borderWidth:2,borderColor:'#142454'}]},options:{...chartDefaults,plugins:{legend:{position:'bottom',labels:{color:'#94A3B8',font:{size:11},boxWidth:10,padding:8}},tooltip:{callbacks:{label:ctx=>` ${ctx.label}：${ctx.raw} 次`}}}}});
+
+  barChart=new Chart(document.getElementById('barChart'),{type:'bar',data:{labels:plans.map(p=>p.name.length>8?p.name.slice(0,8)+'…':p.name),datasets:[{data:plans.map(p=>p.count),backgroundColor:plans.map(p=>p.type==='free'?'#0E9F8E':'#D4A843'),borderRadius:6}]},options:{...chartDefaults,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>` ${ctx.raw} 次`}}},scales:{x:{ticks:{color:'#94A3B8',font:{size:10}},grid:{color:'#1E316660'}},y:{ticks:{color:'#94A3B8',font:{size:10}},grid:{color:'#1E316660'},beginAtZero:true}}}});
+
+  trendChart=new Chart(document.getElementById('trendChart'),{type:'line',data:{labels:monthly.map(m=>m.month),datasets:[{label:'月使用人次',data:monthly.map(m=>m.count),borderColor:'#D4A843',backgroundColor:'#D4A84325',tension:0.4,fill:true,pointBackgroundColor:'#D4A843',pointRadius:5}]},options:{...chartDefaults,plugins:{legend:{labels:{color:'#94A3B8'}}},scales:{x:{ticks:{color:'#94A3B8'},grid:{color:'#1E316660'}},y:{ticks:{color:'#94A3B8'},grid:{color:'#1E316660'},beginAtZero:true}}}});
 }
 
-// 自動載入
 loadData();
-// 每 5 分鐘自動刷新
-setInterval(loadData, 5 * 60 * 1000);
+setInterval(()=>loadData(currentFrom,currentTo),5*60*1000);
 </script>
 </body>
 </html>
