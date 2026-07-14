@@ -103,6 +103,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans TC','PingFang TC','
 .contact-info .c-hint{font-size:11px;color:var(--text3);display:block;margin-top:1px;}
 .contact-arrow{font-size:18px;color:var(--pink-mid);}
 
+.booking-box{background:linear-gradient(135deg,var(--pink),var(--pink-dark));border-radius:12px;padding:12px 15px;border:0.5px solid var(--pink-dark);display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;box-shadow:0 3px 10px rgba(122,63,73,0.22);}
+.booking-box:active{filter:brightness(0.96);}
+.booking-icon{font-size:22px;flex-shrink:0;}
+.booking-info{flex:1;}
+.booking-info .b-label{font-size:11px;color:#FCEEF1;margin-bottom:2px;display:block;}
+.booking-info strong{font-size:15px;color:#fff;display:block;font-weight:600;}
+.booking-info .b-hint{font-size:11px;color:#F5DDE0;display:block;margin-top:1px;}
+.booking-arrow{font-size:18px;color:#fff;}
+
 .wishcard-box{background:#FFF8FA;border-radius:12px;padding:12px 15px;border:0.5px solid var(--pink-mid);display:flex;align-items:center;gap:10px;margin-bottom:1rem;cursor:pointer;-webkit-tap-highlight-color:transparent;text-decoration:none;}
 .wishcard-box:active{background:var(--pink-light);}
 .wishcard-icon{font-size:22px;flex-shrink:0;}
@@ -363,6 +372,12 @@ function nl2p(text){
 // ── 數據回傳設定 ─────────────────────────────────────────────
 // 部署 Apps Script 後，把 Web App URL 貼到下方引號內
 const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzqza-VllEu6tKrMGPOqOVUZ_fnyNX2afpg9hIHzqzd1otBX2jZX4uEGQWBPGEZnKxN/exec";
+// 線上預約表單（Google 表單）
+const BOOKING_URL = "https://forms.gle/PWQqsZFYESmXUcj66";
+
+function trackBookingClick(detailLabel){
+  try { if(typeof gtag==='function') gtag('event','online_booking_click',{'event_category':'engagement','plan_detail':detailLabel||''}); } catch(e){ /* 靜默失敗 */ }
+}
 
 function sendTracking(planName, planType, amount, detail) {
   if (!SCRIPT_URL || SCRIPT_URL.startsWith("請貼")) return;
@@ -430,6 +445,11 @@ function showResult(type, key){
     actHtml='請撥打預約諮商專線，並告知有 3 人同行，進行預約安排諮商時段。';
   }
 
+  // ── 細分對象標籤：衛福部/健保依 key 給更精確標籤，其他類型維持原本 title ──
+  let detailLabel = title;
+  if(type === 'welfare') detailLabel = WELFARE_DETAIL_LABELS[key] || title;
+  if(type === 'nhi')     detailLabel = NHI_DETAIL_LABELS[key] || title;
+
   const wrap = document.createElement('div');
   wrap.className = 'result-wrap';
   wrap.innerHTML = `
@@ -446,6 +466,15 @@ function showResult(type, key){
         <div class="result-action-title">📌 下一步行動</div>
         <p>${actHtml}</p>
       </div>
+      <a class="booking-box" href="${BOOKING_URL}" target="_blank" onclick="trackBookingClick('${detailLabel.replace(/'/g,"\\'")}')">
+        <span class="booking-icon">📝</span>
+        <div class="booking-info">
+          <span class="b-label">線上預約 · 免電話等候</span>
+          <strong>填寫線上預約表單</strong>
+          <span class="b-hint">點此開啟表單，快速完成預約</span>
+        </div>
+        <span class="booking-arrow">›</span>
+      </a>
       <a class="contact-box" href="tel:03-9222141">
         <span class="contact-icon">📞</span>
         <div class="contact-info">
@@ -468,10 +497,6 @@ function showResult(type, key){
     </div>`;
   main.appendChild(wrap);
   document.getElementById('restart').onclick = () => renderQ('veteran');
-  // ── 細分對象標籤：衛福部/健保依 key 給更精確標籤，其他類型維持原本 title ──
-  let detailLabel = title;
-  if(type === 'welfare') detailLabel = WELFARE_DETAIL_LABELS[key] || title;
-  if(type === 'nhi')     detailLabel = NHI_DETAIL_LABELS[key] || title;
   sendTracking(title, heroClass, amount, detailLabel);
   window.scrollTo({top: 0, behavior: 'smooth'});
 }
