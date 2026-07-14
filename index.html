@@ -5,6 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>「安心問」智能ACP給付方案查詢系統｜臺北榮民總醫院蘇澳暨員山分院</title>
 <meta name="description" content="預立醫療照護諮商費用方案查詢，快速找到適合您的免費或優惠方案。">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D020DMSB4Q"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D020DMSB4Q');
+</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{min-height:100%;background:#FDF6F8;}
@@ -351,6 +359,8 @@ function sendTracking(planName, planType, amount) {
       mode: "no-cors"
     });
   } catch(e) { /* 靜默失敗，不影響使用者體驗 */ }
+  // ── GA4：諮商紀錄成功寫入表單 ──
+  try { if(typeof gtag==='function') gtag('event','consultation_submit',{'event_category':'engagement','plan_type':planType}); } catch(e2) { /* 靜默失敗 */ }
 }
 // ─────────────────────────────────────────────────────────────
 
