@@ -41,8 +41,8 @@ html,body{min-height:100%;background:#0D1B3E;font-family:-apple-system,BlinkMacS
 .filter-badge button{background:none;border:none;color:#F0CC7A;cursor:pointer;font-size:13px;line-height:1;padding:0;}
 
 /* stat cards */
-.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;}
-@media(max-width:600px){.stat-grid{grid-template-columns:1fr 1fr;}}
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:14px;}
+@media(max-width:700px){.stat-grid{grid-template-columns:1fr 1fr;}}
 .stat-card{background:#142454;border-radius:12px;padding:1rem 1.1rem;border:0.5px solid #1E3166;position:relative;overflow:hidden;}
 .stat-card::after{content:'';position:absolute;right:-10px;bottom:-10px;width:50px;height:50px;border-radius:50%;background:#1E316650;}
 .stat-label{font-size:10px;color:#94A3B8;margin-bottom:5px;}
@@ -51,6 +51,7 @@ html,body{min-height:100%;background:#0D1B3E;font-family:-apple-system,BlinkMacS
 .stat-card.teal .stat-num{color:#5DCAA5;}
 .stat-card.rose .stat-num{color:#EAB8C0;}
 .stat-card.blue .stat-num{color:#7EB8F7;}
+.stat-card.purple .stat-num{color:#9F7AEA;}
 
 /* charts */
 .chart-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
@@ -206,12 +207,13 @@ function renderDashboard(data,from,to){
 
   const total=data.total||0,freeCount=data.freeCount||0,paidCount=data.paidCount||0;
   const mobileCount=data.mobileCount||0,desktopCount=data.desktopCount||0;
+  const bookingClicks=data.bookingClicks||0;
   const plans=data.plans||[],recent=data.recent||[],monthly=data.monthly||[],details=data.details||[];
 
   [pieChart,barChart,trendChart,deviceChart].forEach(c=>{if(c)c.destroy();});
   pieChart=barChart=trendChart=deviceChart=null;
 
-  if(total===0){
+  if(total===0 && bookingClicks===0){
     document.getElementById('content').innerHTML='<div class="empty">📭 此期間無使用紀錄<br><br>請調整日期區間，或等待民眾開始使用安心問</div>';
     return;
   }
@@ -222,7 +224,8 @@ function renderDashboard(data,from,to){
       <div class="stat-card teal"><div class="stat-label">✅ 免費方案</div><div class="stat-num">${freeCount}</div><div class="stat-unit">${total>0?Math.round(freeCount/total*100):0}%</div></div>
       <div class="stat-card rose"><div class="stat-label">🌸 優惠自費</div><div class="stat-num">${paidCount}</div><div class="stat-unit">${total>0?Math.round(paidCount/total*100):0}%</div></div>
       <div class="stat-card blue"><div class="stat-label">📱 手機使用</div><div class="stat-num">${mobileCount}</div><div class="stat-unit">${total>0?Math.round(mobileCount/total*100):0}%</div></div>
-    </div>
+      <div class="stat-card purple"><div class="stat-label">🗓️ 線上預約點擊</div><div class="stat-num">${bookingClicks}</div><div class="stat-unit">次</div></div>
+    </div>${total===0?'<div class="empty" style="padding:1rem 0;">此期間尚無「使用紀錄」，以下圖表僅供參考</div>':''}
     <div class="chart-row">
       <div class="chart-card"><div class="chart-title">🥧 方案分布</div><div class="chart-wrap"><canvas id="pieChart"></canvas></div></div>
       <div class="chart-card"><div class="chart-title">📱 裝置類型</div><div class="chart-wrap"><canvas id="deviceChart"></canvas></div></div>

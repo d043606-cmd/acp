@@ -377,6 +377,16 @@ const BOOKING_URL = "https://forms.gle/PWQqsZFYESmXUcj66";
 
 function trackBookingClick(detailLabel){
   try { if(typeof gtag==='function') gtag('event','online_booking_click',{'event_category':'engagement','plan_detail':detailLabel||''}); } catch(e){ /* 靜默失敗 */ }
+  if (!SCRIPT_URL || SCRIPT_URL.startsWith("請貼")) return;
+  const device = /Mobi|Android/i.test(navigator.userAgent) ? "mobile" : "desktop";
+  try {
+    fetch(SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify({ action: "booking_click", device, detail: detailLabel || "" }),
+      mode: "no-cors"
+    });
+  } catch(e) { /* 靜默失敗，不影響使用者體驗 */ }
 }
 
 function sendTracking(planName, planType, amount, detail) {
