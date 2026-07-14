@@ -206,7 +206,7 @@ function renderDashboard(data,from,to){
 
   const total=data.total||0,freeCount=data.freeCount||0,paidCount=data.paidCount||0;
   const mobileCount=data.mobileCount||0,desktopCount=data.desktopCount||0;
-  const plans=data.plans||[],recent=data.recent||[],monthly=data.monthly||[];
+  const plans=data.plans||[],recent=data.recent||[],monthly=data.monthly||[],details=data.details||[];
 
   [pieChart,barChart,trendChart,deviceChart].forEach(c=>{if(c)c.destroy();});
   pieChart=barChart=trendChart=deviceChart=null;
@@ -234,6 +234,12 @@ function renderDashboard(data,from,to){
       <table class="tbl"><thead><tr><th>方案名稱</th><th>費用類型</th><th>使用次數</th><th>佔比</th></tr></thead>
       <tbody>${plans.map(p=>`<tr><td>${p.name}</td><td><span class="badge ${p.type==='free'?'free':'paid'}">${p.type==='free'?'免費':'優惠自費'}</span></td><td>${p.count}</td><td>${total>0?Math.round(p.count/total*100):0}%</td></tr>`).join('')}</tbody></table>
     </div>
+    ${details.length>0?`
+    <div class="table-card">
+      <div class="table-title">🔍 衛福部／健保 細分對象統計</div>
+      <table class="tbl"><thead><tr><th>細分對象</th><th>使用次數</th><th>佔比</th></tr></thead>
+      <tbody>${details.map(d=>`<tr><td>${d.name}</td><td>${d.count}</td><td>${total>0?Math.round(d.count/total*100):0}%</td></tr>`).join('')}</tbody></table>
+    </div>`:''}
     <div class="table-card">
       <div class="table-title">🕐 最近 10 筆紀錄</div>
       <table class="tbl"><thead><tr><th>日期</th><th>時間</th><th>方案</th><th>裝置</th></tr></thead>
